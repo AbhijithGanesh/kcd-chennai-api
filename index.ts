@@ -10,7 +10,7 @@ const organization_articles_user_wise = (user: String) => {
 
 const All_articles_organization = (org_name: String) => {
   const base_url: string = "https://dev.to";
-  const config = { "api-key": "W3jWaXoKW6xrDPYPriuo2JqR" };
+  const config = { "api-key": "" };
   axios
     .get(`${base_url}/api/organizations/${org_name}/articles`, {
       headers: config,
