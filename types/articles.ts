@@ -2,8 +2,8 @@ import { User } from "./user";
 
 export interface Article {
   type_of: string;
-  id: Number;
+  id: number;
   user: User;
-  comments_count: Number;
-  reaction_count: Number;
+  comments_count: number;
+  public_reactions_count: number;
 }

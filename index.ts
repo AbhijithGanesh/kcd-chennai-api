@@ -6,7 +6,7 @@ import { stats } from "./types/leaderboard_stats";
 const check = (Obj: Array<String>, Val: String) => {
   let flag: boolean = false;
   for (let i = 0; i < Obj.length; i++) {
-    if (Obj[0] == Val) {
+    if (Obj[i] == Val) {
       flag = true;
       break;
     }
@@ -17,8 +17,13 @@ const check = (Obj: Array<String>, Val: String) => {
 let updateLeaderBoard = (
   leader_board_stats: Array<stats>,
   article: Article
-): Number => {
-  return 0;
+): void => {
+  for (let i = 0; i < leader_board_stats.length; i++) {
+    if (leader_board_stats[i].user.username == article.user.username) {
+      leader_board_stats[i].total_reactions += article.public_reactions_count;
+      leader_board_stats[i].number_of_articles += 1;
+    }
+  }
 };
 
 const All_articles_organization = (org_name: String) => {
@@ -30,20 +35,7 @@ const All_articles_organization = (org_name: String) => {
     })
     .then((res: AxiosResponse) => {
       let data: Array<Article> = res.data; /// This will contain all the articles posted to the kcd-chennai Organization
-      let leader_board: Array<stats> = [
-        {
-          user: {
-            name: "Abhijith Ganesh",
-            username: "AbhijithGanesh",
-            github_username: "AbhijithGanesh",
-            profile_image:
-              "https://res.cloudinary.com/practicaldev/image/fetch/s--GcO1PaG7--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_image/5401/d20e8500-bc09-47b6-9bce-00f0f80cf008.png'",
-          },
-          total_views: 5000,
-          total_reactions: 1,
-          number_of_articles: 1,
-        },
-      ];
+      let data_board: Array<stats> = [];
       let ref_list: Array<String> = [];
 
       for (let i = 0; i < data.length; i++) {
@@ -57,15 +49,16 @@ const All_articles_organization = (org_name: String) => {
               profile_image: data[i].user.profile_image,
             },
             total_views: 0,
-            total_reactions: 0,
+            total_reactions: data[i].public_reactions_count,
             number_of_articles: 1,
           };
-          leader_board.push(stat_instance);
+          data_board.push(stat_instance);
         } else {
-          updateLeaderBoard(leader_board, data[i]);
+          updateLeaderBoard(data_board, data[i]);
+          // console.log(data[i]);
         }
       }
-      console.log(leader_board);
+      console.log(data_board);
     });
 };
 
