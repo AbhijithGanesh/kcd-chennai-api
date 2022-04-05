@@ -23,7 +23,7 @@ let updateLeaderBoard = (
 
 const All_articles_organization = (org_name: String) => {
   const base_url: string = "https://dev.to";
-  const config = { "api-key": "QRVJwhgosVtYdcf9csUS7z5U" };
+  const config = { "api-key": "" };
   axios
     .get(`${base_url}/api/organizations/${org_name}/articles`, {
       headers: config,
@@ -69,4 +69,5 @@ const All_articles_organization = (org_name: String) => {
     });
 };
 
-All_articles_organization("kcdchennai");
+All_articles_organization("organization Name"); /// Add your organization name
+
