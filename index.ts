@@ -25,4 +25,4 @@ const All_articles_organization = (org_name: String) => {
     });
 };
 
-All_articles_organization("kcdchennai");
+All_articles_organization("org-name"); /// Enter your organization Name
