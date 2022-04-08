@@ -6,4 +6,5 @@ export interface Article {
   user: User;
   comments_count: number;
   public_reactions_count: number;
+  published_at: Date;
 }

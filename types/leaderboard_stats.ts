@@ -1,8 +1,16 @@
 import { User } from "./user";
 
-export interface stats {
+export interface Stats {
   user: User;
   total_reactions: number;
-  total_views: number;
   number_of_articles: number;
+}
+
+export interface standings {
+  user: User;
+  score: number;
+}
+
+export interface PageView {
+  total_read: number;
 }
