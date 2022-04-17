@@ -2,23 +2,12 @@ import axios, { AxiosResponse } from "axios";
 import { Article } from "./types/articles";
 import { Config } from "./types/config";
 import { Stats } from "./types/leaderboard_stats";
-
+import check from "./src/checker";
 import { calculate_score, updateLeaderBoard } from "./src/crud_leader_board";
-
-const check = (Obj: Array<String>, Val: String) => {
-  let flag: boolean = false;
-  for (let i = 0; i < Obj.length; i++) {
-    if (Obj[i] == Val) {
-      flag = true;
-      break;
-    }
-  }
-  return flag;
-};
 
 const All_articles_organization = (org_name: String) => {
   const base_url: string = "https://dev.to";
-  const config: Config = { api_key: "QRVJwhgosVtYdcf9csUS7z5U" };
+  const config: Config 
   axios
     .get(`${base_url}/api/organizations/${org_name}/articles`, {
       headers: { api_key: config.api_key },
@@ -30,7 +19,7 @@ const All_articles_organization = (org_name: String) => {
       for (let i = 0; i < data.length; i++) {
         if (
           check(ref_list, data[i].user.username) == false &&
-          new Date(data[i].published_at) >= new Date("2022-01-01T00:00:00.000Z")
+          new Date(data[i].published_at) >= new Date("2022-04-16T00:00:00.000Z")
         ) {
           ref_list.push(data[i].user.username);
 
@@ -50,7 +39,9 @@ const All_articles_organization = (org_name: String) => {
           continue;
         }
       }
-      console.log(calculate_score(data_board));
+      console.log(
+        calculate_score(data_board).sort((a, b) => (a.score < b.score ? -1 : 1))
+      );
     });
 };
 

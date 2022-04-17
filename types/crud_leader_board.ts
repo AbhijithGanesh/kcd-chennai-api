@@ -13,21 +13,6 @@ let updateLeaderBoard = (
   }
 };
 
-let sort_leader_board = (
-  leader_board_stats: Array<standings>
-): Array<standings> => {
-  for (let i = 0; i < leader_board_stats.length; i++) {
-    for (let j = 0; j < leader_board_stats.length - i - 1; j++) {
-      if (leader_board_stats[j].score > leader_board_stats[j + 1].score) {
-        leader_board_stats[j],
-          (leader_board_stats[j + 1] = leader_board_stats[j]),
-          leader_board_stats[j + 1];
-      }
-    }
-  }
-  return leader_board_stats;
-};
-
 let calculate_score = (leader_board_stats: Array<Stats>): Array<standings> => {
   let ref_array: Array<standings> = [];
   for (let i = 0; i < leader_board_stats.length; i++) {
@@ -42,4 +27,4 @@ let calculate_score = (leader_board_stats: Array<Stats>): Array<standings> => {
   return ref_array;
 };
 
-export { updateLeaderBoard, calculate_score, sort_leader_board };
+export { updateLeaderBoard, calculate_score };

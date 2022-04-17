@@ -18,10 +18,10 @@ let calculate_score = (leader_board_stats: Array<Stats>): Array<standings> => {
   let ref_array: Array<standings> = [];
   for (let i = 0; i < leader_board_stats.length; i++) {
     let instance: standings = {
-      user: leader_board_stats[i].user,
       score:
         leader_board_stats[i].number_of_articles * 10 +
         20 * leader_board_stats[i].total_reactions,
+      user: leader_board_stats[i].user,
     };
     ref_array.push(instance);
   }
