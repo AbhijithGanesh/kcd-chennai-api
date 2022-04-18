@@ -1,6 +1,5 @@
 import { standings, Stats } from "../types/leaderboard_stats";
 import { Article } from "../types/articles";
-import { sort_leader_board } from "../types/crud_leader_board";
 
 let updateLeaderBoard = (
   leader_board_Stats: Array<Stats>,
@@ -19,13 +18,12 @@ let calculate_score = (leader_board_stats: Array<Stats>): Array<standings> => {
   for (let i = 0; i < leader_board_stats.length; i++) {
     let instance: standings = {
       score:
-        leader_board_stats[i].number_of_articles * 10 +
+        leader_board_stats[i].number_of_articles * 15 +
         20 * leader_board_stats[i].total_reactions,
       user: leader_board_stats[i].user,
     };
     ref_array.push(instance);
   }
-  // console.log(sort_leader_board(ref_array));
   return ref_array;
 };
 

@@ -3,11 +3,12 @@ import { Article } from "./types/articles";
 import { Config } from "./types/config";
 import { Stats } from "./types/leaderboard_stats";
 import check from "./src/checker";
+import { formatter } from "./src/formatter";
 import { calculate_score, updateLeaderBoard } from "./src/crud_leader_board";
 
 const All_articles_organization = (org_name: String) => {
   const base_url: string = "https://dev.to";
-  const config: Config 
+  const config: Config = ;
   axios
     .get(`${base_url}/api/organizations/${org_name}/articles`, {
       headers: { api_key: config.api_key },
@@ -39,9 +40,18 @@ const All_articles_organization = (org_name: String) => {
           continue;
         }
       }
-      console.log(
-        calculate_score(data_board).sort((a, b) => (a.score < b.score ? -1 : 1))
-      );
+      axios
+        .post(
+          "https://hooks.slack.com/services/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",
+          formatter(
+            calculate_score(data_board).sort((a, b) =>
+              a.score > b.score ? -1 : 1
+            )
+          )
+        )
+        .then((res: AxiosResponse) => {
+          console.log("The post request was successfully sent");
+        });
     });
 };
 
